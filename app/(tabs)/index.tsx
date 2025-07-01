@@ -9,7 +9,7 @@ import MovieCard from "@/components/MovieCard";
 
 export default function Index() {
   const router = useRouter();
-  const { data, loading, error } = useFetch(() => fetchMovies({ query: '' }))
+  const { data, loading, error } = useFetch(() => fetchMovies({}));
 
   return (
     <View className="flex-1 bg-primary">
