@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
 import { fetchMovies } from "@/services/api";
+import { updateSearchCount } from "@/services/appwrite";
 import useFetch from "@/services/useFetch";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, View, Text } from "react-native";
@@ -21,8 +23,13 @@ const Search = () => {
     }, 500)
 
     return () => clearTimeout(timeoutId)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery])
+
+  useEffect(() => {
+    if (data?.length && data?.[0]) {
+      updateSearchCount(searchQuery, data[0])
+    }
+  }, [data])
 
   return (
     <View className="flex-1 bg-primary">
